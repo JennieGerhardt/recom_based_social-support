@@ -1,0 +1,25 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+result_emotion<-read.csv("F:/code/depression_tieba/data/result_time_test.csv",sep=",",na.strings="NA",stringsAsFactors=FALSE)
+head(result_emotion)
+```
+compaired <- list(c("Neg_Anx","Pos_Anx"),
+                  c("Neg_Anger","Pos_Anger"),c("Neg_Sad","Pos_Sad"),c("Neg_NegEmo","Pos_NegEmo"))
+```{r}
+compaired <- list(c("Neg_tPast","Pos_tPast"),
+                  c("Neg_tNow","Pos_tNow"),c("Neg_tFuture","Pos_tFuture"))
+```
+
+```{r}
+library(ggplot2)
+library(ggsignif)
+```
+c( "Neg_Anx","Pos_Anx", "Neg_Anger","Pos_Anger","Neg_Sad","Pos_Sad","Neg_NegEmo","Pos_NegEmo"))
+```{r}
+ggplot(result_emotion,aes(x = factor(group, level = c("Neg_tPast","Pos_tPast","Neg_tNow","Pos_tNow","Neg_tFuture","Pos_tFuture")),score,fill=color))+geom_boxplot(width=0.5)+theme(axis.text.x=element_text(size=10,angle=30),axis.text.y=element_text(size=10),axis.title.x=element_text(size = 12),axis.title.y=element_text(size = 12))+labs(x='Character', y= 'Score')+geom_signif(comparisons = compaired,step_increase = 0.3,map_signif_level = T,test = wilcox.test)
+```
+
